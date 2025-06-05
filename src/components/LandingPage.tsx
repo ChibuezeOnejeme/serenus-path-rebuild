@@ -21,7 +21,7 @@ const LandingPage = ({ onShowAuth }: LandingPageProps) => {
                 <Heart className="w-6 h-6 text-white" />
               </div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
-                Serenity
+                zapAid
               </h1>
             </div>
             <div className="flex items-center space-x-4">
@@ -228,7 +228,7 @@ const LandingPage = ({ onShowAuth }: LandingPageProps) => {
                 <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-green-500 rounded-lg flex items-center justify-center">
                   <Heart className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-xl font-bold">Serenity</span>
+                <span className="text-xl font-bold">zapAid</span>
               </div>
               <p className="text-gray-400">
                 Supporting your journey to mental wellness and recovery.
@@ -263,7 +263,7 @@ const LandingPage = ({ onShowAuth }: LandingPageProps) => {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Serenity. All rights reserved.</p>
+            <p>&copy; 2024 zapAid. All rights reserved.</p>
           </div>
         </div>
       </footer>
