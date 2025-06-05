@@ -7,9 +7,15 @@ import Mood from '@/components/Mood';
 import Therapy from '@/components/Therapy';
 import Mindfulness from '@/components/Mindfulness';
 import Emergency from '@/components/Emergency';
+import LandingPage from '@/components/LandingPage';
+import AuthModal from '@/components/AuthModal';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authType, setAuthType] = useState<'signin' | 'signup'>('signin');
+  const [user, setUser] = useState<{ email: string; name: string } | null>(null);
 
   const navigation = [
     { id: 'dashboard', label: 'Dashboard', icon: Heart },
@@ -19,6 +25,28 @@ const Index = () => {
     { id: 'mindfulness', label: 'Mindfulness', icon: BookOpen },
     { id: 'emergency', label: 'Emergency', icon: Phone },
   ];
+
+  const handleShowAuth = (type: 'signin' | 'signup') => {
+    setAuthType(type);
+    setShowAuthModal(true);
+  };
+
+  const handleAuth = (email: string, password: string, type: 'signin' | 'signup') => {
+    // This would integrate with your authentication system
+    console.log(`${type} attempt:`, { email, password });
+    
+    // For demo purposes, we'll just simulate successful auth
+    const userName = email.split('@')[0];
+    setUser({ email, name: userName.charAt(0).toUpperCase() + userName.slice(1) });
+    setIsAuthenticated(true);
+    setShowAuthModal(false);
+  };
+
+  const handleSignOut = () => {
+    setIsAuthenticated(false);
+    setUser(null);
+    setActiveTab('dashboard');
+  };
 
   const renderActiveComponent = () => {
     switch (activeTab) {
@@ -39,6 +67,20 @@ const Index = () => {
     }
   };
 
+  if (!isAuthenticated) {
+    return (
+      <>
+        <LandingPage onShowAuth={handleShowAuth} />
+        <AuthModal
+          isOpen={showAuthModal}
+          onClose={() => setShowAuthModal(false)}
+          initialType={authType}
+          onAuth={handleAuth}
+        />
+      </>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-green-50 to-purple-50">
       {/* Header */}
@@ -53,8 +95,16 @@ const Index = () => {
                 Serenity
               </h1>
             </div>
-            <div className="text-sm text-gray-600">
-              Your path to wellness
+            <div className="flex items-center space-x-4">
+              <span className="text-sm text-gray-600">
+                Welcome back, {user?.name}
+              </span>
+              <button
+                onClick={handleSignOut}
+                className="text-sm text-gray-600 hover:text-gray-800"
+              >
+                Sign Out
+              </button>
             </div>
           </div>
         </div>
